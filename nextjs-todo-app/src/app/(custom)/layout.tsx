@@ -1,3 +1,6 @@
+import Footer from "@/components/private/footer";
+import Header from "@/components/private/header";
+
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,7 +15,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-slate-500">{children}</body>
+      <body className="">
+          <div className="w-screen h-screen flex flex-col">
+            <Header />
+              <div className="flex-1">
+                {children}
+              </div>
+            <Footer />
+          </div>
+        </body>
     </html>
   );
 }
