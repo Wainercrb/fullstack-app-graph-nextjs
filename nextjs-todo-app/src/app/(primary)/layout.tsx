@@ -1,4 +1,9 @@
+import ApolloProvider from "@/context/apollo-server";
+import { Inter } from "next/font/google";
 import type { Metadata } from "next";
+import "../../app/globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "To-Do App private layout",
@@ -11,9 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="w-screen h-screen">{children}</body>
+    <html lang='en'>
+      <body className={inter.className}>
+        <ApolloProvider>
+          <main className='w-screen h-screen'>{children}</main>
+        </ApolloProvider>
+      </body>
     </html>
   );
 }
- 

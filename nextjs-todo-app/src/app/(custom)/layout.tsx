@@ -1,7 +1,12 @@
-import Footer from "@/components/private/footer";
-import Header from "@/components/private/header";
-
+import ApolloProvider from "@/context/apollo-server";
+import Footer from "@/ui/private/footer";
+import Header from "@/ui/private/header";
+import { Inter } from "next/font/google";
 import type { Metadata } from "next";
+
+import "../../app/globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Public",
@@ -14,17 +19,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="">
-          <div className="w-screen h-screen flex flex-col">
+    <html lang='en'>
+      <body className={inter.className}>
+        <ApolloProvider>
+          <main className='w-screen h-screen flex flex-col'>
             <Header />
-              <div className="flex-1">
-                {children}
-              </div>
+            <div className='flex-1'>{children}</div>
             <Footer />
-          </div>
-        </body>
+          </main>
+        </ApolloProvider>
+      </body>
     </html>
   );
 }
- 
