@@ -34,6 +34,11 @@ export interface NexusGenInputs {
     description?: NexusGenEnums['Sort'] | null; // Sort
     url?: NexusGenEnums['Sort'] | null; // Sort
   }
+  ToDoOrderByInput: { // input type
+    createdAt?: NexusGenEnums['Sort'] | null; // Sort
+    description?: NexusGenEnums['Sort'] | null; // Sort
+    title?: NexusGenEnums['Sort'] | null; // Sort
+  }
 }
 
 export interface NexusGenEnums {
@@ -67,6 +72,18 @@ export interface NexusGenObjects {
   }
   Mutation: {};
   Query: {};
+  ToDo: { // root type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    description: string; // String!
+    id: number; // Int!
+    isCompleted: boolean; // Boolean!
+    title: string; // String!
+  }
+  ToDoQueryResponse: { // root type
+    count: number; // Int!
+    id?: string | null; // ID
+    list: NexusGenRootTypes['ToDo'][]; // [ToDo!]!
+  }
   User: { // root type
     email: string; // String!
     id: number; // Int!
@@ -110,10 +127,25 @@ export interface NexusGenFieldTypes {
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     post: NexusGenRootTypes['Link']; // Link!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    toDos: NexusGenRootTypes['ToDo']; // ToDo!
     vote: NexusGenRootTypes['Vote'] | null; // Vote
   }
   Query: { // field return type
     feed: NexusGenRootTypes['Feed']; // Feed!
+    toDos: NexusGenRootTypes['ToDoQueryResponse']; // ToDoQueryResponse!
+  }
+  ToDo: { // field return type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    createdBy: NexusGenRootTypes['User'] | null; // User
+    description: string; // String!
+    id: number; // Int!
+    isCompleted: boolean; // Boolean!
+    title: string; // String!
+  }
+  ToDoQueryResponse: { // field return type
+    count: number; // Int!
+    id: string | null; // ID
+    list: NexusGenRootTypes['ToDo'][]; // [ToDo!]!
   }
   User: { // field return type
     email: string; // String!
@@ -149,10 +181,25 @@ export interface NexusGenFieldTypeNames {
     login: 'AuthPayload'
     post: 'Link'
     signup: 'AuthPayload'
+    toDos: 'ToDo'
     vote: 'Vote'
   }
   Query: { // field return type name
     feed: 'Feed'
+    toDos: 'ToDoQueryResponse'
+  }
+  ToDo: { // field return type name
+    createdAt: 'DateTime'
+    createdBy: 'User'
+    description: 'String'
+    id: 'Int'
+    isCompleted: 'Boolean'
+    title: 'String'
+  }
+  ToDoQueryResponse: { // field return type name
+    count: 'Int'
+    id: 'ID'
+    list: 'ToDo'
   }
   User: { // field return type name
     email: 'String'
@@ -181,6 +228,10 @@ export interface NexusGenArgTypes {
       name: string; // String!
       password: string; // String!
     }
+    toDos: { // args
+      description: string; // String!
+      title: string; // String!
+    }
     vote: { // args
       linkId: number; // Int!
     }
@@ -189,6 +240,12 @@ export interface NexusGenArgTypes {
     feed: { // args
       filter?: string | null; // String
       orderBy?: NexusGenInputs['LinkOrderByInput'][] | null; // [LinkOrderByInput!]
+      skip?: number | null; // Int
+      take?: number | null; // Int
+    }
+    toDos: { // args
+      filter?: string | null; // String
+      orderBy?: NexusGenInputs['ToDoOrderByInput'][] | null; // [ToDoOrderByInput!]
       skip?: number | null; // Int
       take?: number | null; // Int
     }

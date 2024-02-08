@@ -37,16 +37,39 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   post(description: String!, url: String!): Link!
   signup(email: String!, name: String!, password: String!): AuthPayload!
+  toDos(description: String!, title: String!): ToDo!
   vote(linkId: Int!): Vote
 }
 
 type Query {
   feed(filter: String, orderBy: [LinkOrderByInput!], skip: Int, take: Int): Feed!
+  toDos(filter: String, orderBy: [ToDoOrderByInput!], skip: Int, take: Int): ToDoQueryResponse!
 }
 
 enum Sort {
   asc
   desc
+}
+
+type ToDo {
+  createdAt: DateTime!
+  createdBy: User
+  description: String!
+  id: Int!
+  isCompleted: Boolean!
+  title: String!
+}
+
+input ToDoOrderByInput {
+  createdAt: Sort
+  description: Sort
+  title: Sort
+}
+
+type ToDoQueryResponse {
+  count: Int!
+  id: ID
+  list: [ToDo!]!
 }
 
 type User {
